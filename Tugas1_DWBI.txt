@@ -1,0 +1,35 @@
+MariaDB [dwbi]> create table Customer (
+    -> custNo char(11) not null,
+    -> custname varchar(100) not null,
+    -> address varchar(100) not null,
+    -> Internal varchar(2) not null,
+    -> contact varchar(100) not null,
+    -> phone varchar(14) not null,
+    -> city varchar(10) not null,
+    -> state varchar(10) not null,
+    -> zip varchar(10) not null,
+    -> CONSTRAINT CustomerPK PRIMARY KEY (custNo));
+Query OK, 0 rows affected (0.289 sec)
+
+MariaDB [dwbi]> create table Facility (
+    -> facno char(11) not null,
+    -> facname varchar(100) not null,
+    -> CONSTRAINT FacilityPK PRIMARY KEY (facno));
+Query OK, 0 rows affected (0.307 sec)
+
+MariaDB [dwbi]> create table Location (
+    -> locno char(11) not null,
+    -> facno char(11) not null,
+    -> locname varchar(100) not null,
+    -> CONSTRAINT LocationPK PRIMARY KEY (locno));
+Query OK, 0 rows affected (3.523 sec)
+
+MariaDB [dwbi]> alter table Location add CONSTRAINT LocationFK FOREIGN KEY (facno) REFERENCES Facility(facno) on DELETE CASCADE on UPDATE CASCADE;
+Query OK, 0 rows affected (1.352 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dwbi]> alter table Facility add UNIQUE (facno);
+Query OK, 0 rows affected (0.687 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dwbi]> 
